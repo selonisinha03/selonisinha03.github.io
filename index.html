@@ -1,0 +1,678 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Seloni Sinha, Graduate Software Engineer in AI/ML at Jaguar Land Rover">
+<meta name="theme-color" content="#e8defb">
+<title>Seloni Sinha</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: sticky top nav; fixed lavender sidebar (photo, intro, links) + scrolling main column; collapses to top bar + intro card under 960px. Patent-style project rows; custom cursor + scroll reveal */
+:root {
+  --bg: #f4effd;
+  --side: #e7dcfb;
+  --side-2: #f1eafd;
+  --surface: #ffffff;
+  --fg: #1e1830;
+  --muted: #6a6282;
+  --line: #e4ddf2;
+  --lav: #7d64c6;
+  --lav-2: #9b86d8;
+  --fill: #c9b8f3;
+  --fill-2: #d8cbf7;
+  --on-fill: #2b1f4a;
+  --lav-soft: #eee8fa;
+  --gold: #c0578a;
+  --gold-soft: #fae6f0;
+  --ok: #2b7a4b; --ok-soft: #e0f1e6;
+  --font-display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "DM Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #120f1b; --side: #1d1730; --side-2: #161222; --surface: #1c1828; --fg: #ece8f7; --muted: #a39cba; --line: #2c2740;
+    --lav: #c4b2f3; --lav-2: #d8cbf7; --lav-soft: #282140; --fill: #c9b8f3; --fill-2: #d8cbf7; --on-fill: #231a3d;
+    --gold: #f2a6c8; --gold-soft: #3a2131; --ok: #74cf98; --ok-soft: #14301f;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #120f1b; --side: #1d1730; --side-2: #161222; --surface: #1c1828; --fg: #ece8f7; --muted: #a39cba; --line: #2c2740;
+  --lav: #c4b2f3; --lav-2: #d8cbf7; --lav-soft: #282140; --fill: #c9b8f3; --fill-2: #d8cbf7; --on-fill: #231a3d;
+  --gold: #f2a6c8; --gold-soft: #3a2131; --ok: #74cf98; --ok-soft: #14301f;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+img, svg, canvas { max-width: 100%; }
+button, a { -webkit-tap-highlight-color: transparent; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before { animation: none !important; transition: none !important; } }
+body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 17px; line-height: 1.62; padding-inline: 0; padding-block: 0; }
+a { color: var(--lav); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 4px; }
+.skip { position: absolute; left: -9999px; top: 8px; background: var(--surface); padding: 8px 12px; border-radius: 6px; z-index: 50; }
+.skip:focus { left: 16px; }
+.container { max-width: 940px; margin: 0 auto; padding-inline: 40px; }
+
+/* Top navigation bar */
+.top { position: sticky; top: 0; z-index: 30; background: color-mix(in srgb, var(--bg) 86%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); padding-top: env(safe-area-inset-top, 0px); }
+.top-in { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 64px; padding-inline: 28px; }
+.brand { display: flex; align-items: center; gap: 10px; color: var(--fg); font-family: var(--font-display); font-weight: 700; font-size: 17px; white-space: nowrap; }
+.brand:hover { text-decoration: none; }
+.brand i { font-style: normal; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; background: var(--fill); color: var(--on-fill); font-size: 13px; letter-spacing: .02em; }
+.nav { display: flex; gap: 2px; list-style: none; margin: 0; padding: 0; }
+.nav a { display: block; padding: 7px 12px; border-radius: 9px; font-size: 15px; color: var(--muted); white-space: nowrap; transition: background .2s, color .2s; }
+.nav a span { font-family: var(--font-mono); font-size: 11.5px; color: var(--lav); margin-right: 6px; }
+.nav a:hover, .nav a.active { background: var(--lav-soft); color: var(--fg); text-decoration: none; }
+.menu-btn { display: none; font: inherit; font-size: 15px; background: var(--surface); color: var(--fg); border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px; cursor: pointer; }
+
+/* Sidebar: photo, intro, links */
+.side { position: fixed; top: calc(65px + env(safe-area-inset-top, 0px)); bottom: 0; left: 0; width: 340px; z-index: 20; overflow-y: auto; overscroll-behavior: contain; display: flex; flex-direction: column;
+  background: linear-gradient(170deg, var(--side) 0%, var(--side-2) 100%); border-right: 1px solid var(--line); scrollbar-width: thin; scrollbar-color: var(--fill) transparent; }
+.side::-webkit-scrollbar { width: 6px; } .side::-webkit-scrollbar-thumb { background: var(--fill); border-radius: 6px; }
+.side canvas { position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; opacity: .6; }
+.side-in { position: relative; margin: auto 0; padding: 30px 28px; display: flex; flex-direction: column; align-items: flex-start; text-align: left; gap: 14px; }
+.photo { position: relative; width: 184px; height: 184px; flex: none; align-self: center; border-radius: 50%; padding: 4px; background: conic-gradient(from 200deg, var(--fill), #f6b8d4, #b9a2f0, var(--fill)); box-shadow: 0 14px 34px rgba(140,115,210,.3); }
+.photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; border-radius: 50%; display: block; border: 4px solid var(--surface); }
+.status-pill { display: inline-flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 600; padding: 4px 12px 4px 10px; border-radius: 999px; background: var(--surface); color: var(--fg); border: 1px solid var(--line); box-shadow: 0 4px 12px rgba(140,115,210,.12); }
+.status-pill i { width: 8px; height: 8px; border-radius: 50%; background: #3fbf7f; box-shadow: 0 0 0 0 rgba(63,191,127,.6); animation: pulse 2s infinite; }
+@keyframes pulse { 70% { box-shadow: 0 0 0 7px rgba(63,191,127,0); } 100% { box-shadow: 0 0 0 0 rgba(63,191,127,0); } }
+.side h1 { font-family: var(--font-display); font-weight: 800; font-size: 2.7rem; letter-spacing: -.035em; line-height: .98; margin: 0;
+  background: linear-gradient(100deg, var(--fg) 0%, var(--lav) 55%, var(--gold) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.kicker { font-family: var(--font-mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--lav); margin: 0; }
+.rotator { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; line-height: 1.3; color: var(--fg); min-height: 1.5em; }
+.rotator .word { color: var(--gold); }
+.rotator .caret { display: inline-block; width: 2px; height: 1.05em; margin-left: 2px; vertical-align: -2px; background: var(--gold); animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+.bio { margin: 0; font-size: 14.5px; line-height: 1.62; color: var(--fg); text-align: justify; hyphens: auto; -webkit-hyphens: auto; }
+.bio mark { background: linear-gradient(transparent 58%, color-mix(in srgb, var(--fill) 75%, transparent) 58%); color: inherit; font-weight: 600; padding: 0 1px; }
+.hl { display: flex; flex-wrap: wrap; gap: 6px; }
+.hl span { font-size: 12.5px; font-weight: 600; padding: 3px 10px; border-radius: 8px; background: var(--surface); color: var(--lav); border: 1px solid var(--line); transition: transform .2s, background .2s; }
+.hl span:hover { transform: translateY(-2px); background: var(--lav-soft); }
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; width: 100%; }
+.stats div { background: color-mix(in srgb, var(--surface) 70%, transparent); border: 1px solid var(--line); border-radius: 12px; padding: 8px 10px; line-height: 1.2; }
+.stats b { display: block; font-family: var(--font-display); font-weight: 800; font-size: 1.1rem; color: var(--lav); }
+.stats span { font-size: 11.5px; color: var(--muted); white-space: nowrap; }
+.actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; font: inherit; font-size: 14px; font-weight: 600; padding: 9px 12px; border-radius: 10px; cursor: pointer; border: 1px solid var(--line); background: var(--surface); color: var(--fg); transition: transform .2s, border-color .2s, box-shadow .2s; }
+.btn:hover { text-decoration: none; border-color: var(--lav); transform: translateY(-2px); box-shadow: 0 6px 14px rgba(140,115,210,.15); }
+.btn.solid { background: var(--fill); color: var(--on-fill); border-color: transparent; }
+.btn.solid:hover { background: var(--fill-2); }
+.page { margin-left: 340px; min-width: 0; }
+
+/* Sections */
+section { padding-block: 64px 0; scroll-margin-top: 84px; }
+main > section:first-child { padding-top: 44px; }
+.sec-title { display: flex; align-items: baseline; gap: 14px; margin: 0 0 28px; }
+.sec-title .num { font-family: var(--font-mono); font-size: 14px; color: var(--lav); }
+.sec-title h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.7rem, 3.4vw, 2.2rem); letter-spacing: -.02em; margin: 0; }
+.sec-title::after { content: ""; flex: 1; height: 1px; background: var(--line); align-self: center; }
+h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.2rem; line-height: 1.25; margin: 0; text-wrap: balance; }
+.muted { color: var(--muted); }
+
+/* Projects toolbar */
+.toolbar { display: grid; gap: 14px; margin-bottom: 22px; }
+.search { position: relative; }
+.search input { width: 100%; font: inherit; font-size: 16px; padding: 12px 44px 12px 42px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); }
+.search input:focus { outline: 2px solid var(--lav); outline-offset: 0; }
+.search .glyph { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 18px; pointer-events: none; }
+.search kbd { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font-family: var(--font-mono); font-size: 12px; border: 1px solid var(--line); border-radius: 5px; padding: 1px 7px; color: var(--muted); background: var(--bg); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font: inherit; font-size: 14px; font-weight: 500; padding: 6px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); cursor: pointer; }
+.chip:hover { border-color: var(--lav); }
+.chip[aria-pressed="true"] { background: var(--fill); color: var(--on-fill); border-color: var(--fill); }
+.meta-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; font-size: 14.5px; color: var(--muted); }
+.linkish { font: inherit; font-size: 14.5px; background: none; border: 0; color: var(--lav); cursor: pointer; padding: 0; font-weight: 600; }
+.linkish:hover { text-decoration: underline; text-underline-offset: 3px; }
+.meta-actions { display: flex; gap: 18px; flex-wrap: wrap; }
+
+/* Project rows (patent-style) */
+.proj-list { display: grid; gap: 12px; }
+.proj-row { position: relative; display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 26px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 22px 24px; overflow: hidden; transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease; }
+.proj-row::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .25s; background: radial-gradient(220px circle at var(--spot-x, 50%) var(--spot-y, 50%), color-mix(in srgb, var(--lav) 14%, transparent), transparent); }
+.proj-row::after { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: linear-gradient(var(--lav), var(--gold)); transform: scaleY(0); transform-origin: top; transition: transform .4s ease; }
+.proj-row:hover { border-color: var(--lav); box-shadow: 0 10px 28px rgba(140,115,210,.14); }
+.proj-row:hover::before { opacity: 1; }
+.proj-row:hover::after, .proj-row.flash::after { transform: scaleY(1); }
+.proj-row.flash { border-color: var(--gold); }
+@media (hover: hover) and (pointer: fine) { .proj-row:hover { transform: scale(1.01); } }
+.proj-label { display: flex; flex-direction: column; gap: 6px; align-items: flex-start; min-width: 0; position: relative; }
+.org { font-family: var(--font-mono); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--lav); line-height: 1.4; }
+.plogo { width: 40px; height: 40px; border-radius: 10px; background: #fff; border: 1px solid var(--line); padding: 6px; object-fit: contain; margin-bottom: 2px; }
+.pyear { font-family: var(--font-mono); font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.pstatus { font-size: 12px; font-weight: 600; padding: 2px 9px; border-radius: 6px; background: var(--lav-soft); color: var(--lav); }
+.pstatus.win { background: var(--gold-soft); color: var(--gold); }
+.proj-main { min-width: 0; position: relative; }
+.proj-main h3 { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.must { font-family: var(--font-body); font-size: 11.5px; font-weight: 700; letter-spacing: .03em; padding: 2px 9px; border-radius: 999px; background: #ffd3e8; color: #3a1029; }
+.pdesc { margin: 6px 0 0; color: var(--muted); font-size: 15.5px; }
+.badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.badge { font-family: var(--font-mono); font-size: 11.5px; padding: 2px 8px; border-radius: 6px; background: var(--lav-soft); color: var(--lav); }
+.pdetail { margin-top: 12px; font-size: 15px; animation: detail-enter .3s ease both; }
+@keyframes detail-enter { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+.proj-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.pbtn { position: relative; overflow: hidden; display: inline-flex; align-items: center; gap: 6px; font: inherit; font-size: 14px; font-weight: 600; padding: 7px 14px; border-radius: 9px; border: 1px solid var(--lav); background: transparent; color: var(--lav); cursor: pointer; transition: transform .2s, background .2s, color .2s, box-shadow .2s; }
+.pbtn:hover { background: var(--lav-soft); transform: translateY(-2px); text-decoration: none; }
+.pbtn:active { transform: scale(.96); }
+.pbtn.solid { background: var(--fill); color: var(--on-fill); border-color: var(--fill); }
+.pbtn.solid:hover { background: var(--fill-2); box-shadow: 0 6px 16px rgba(140,115,210,.25); }
+.pbtn .arr { display: inline-block; transition: transform .25s; }
+.pbtn[aria-expanded="true"] .arr { transform: rotate(180deg); }
+.empty { padding: 40px; text-align: center; border: 1px dashed var(--line); border-radius: 16px; color: var(--muted); }
+
+/* Experience */
+.xp { display: grid; gap: 18px; }
+.xp-item { display: grid; grid-template-columns: 56px 1fr; gap: 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 24px; }
+.logo { width: 56px; height: 56px; border-radius: 14px; display: grid; place-items: center; font-family: var(--font-display); font-weight: 800; font-size: 17px; }
+.logo.img { background: #fff; border: 1px solid var(--line); padding: 9px; }
+.logo.img img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.logo.sch { background: var(--lav-soft); color: var(--lav); }
+.xp-item > div { min-width: 0; }
+.xp-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; align-items: baseline; }
+.when { font-family: var(--font-mono); font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.status { display: inline-block; font-size: 12px; font-weight: 600; padding: 2px 9px; border-radius: 999px; background: var(--ok-soft); color: var(--ok); margin-left: 8px; vertical-align: 3px; }
+.sub { font-weight: 600; margin: 16px 0 2px; }
+ul.list { margin: 6px 0 0; padding-left: 20px; }
+ul.list li { margin-block: 4px; }
+ul.list li::marker { color: var(--lav); }
+
+/* Skills */
+.skills { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.skill { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 20px 22px; min-width: 0; }
+.skill h3 { font-size: 1.02rem; margin-bottom: 12px; }
+.tags { display: flex; flex-wrap: wrap; gap: 7px; }
+.tag { font-size: 14px; padding: 4px 11px; border-radius: 8px; background: var(--bg); border: 1px solid var(--line); }
+
+/* Awards */
+.awards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 18px; }
+.award { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 20px; min-width: 0; }
+.award b { display: block; font-family: var(--font-display); font-weight: 800; font-size: 2rem; color: var(--lav); line-height: 1.1; font-variant-numeric: tabular-nums; }
+.award span { color: var(--muted); font-size: 15px; }
+.award.star { background: linear-gradient(115deg, #ffd98a 0%, #ffb3d1 48%, #c9b8f3 100%); border-color: transparent; box-shadow: 0 12px 28px rgba(214,120,170,.3); }
+.award.star b, .award.star span { color: #2b1238; }
+.award.star b { font-size: 2.4rem; }
+
+/* Contact */
+.contact { border-radius: 22px; padding: 44px; background: var(--lav-soft); display: grid; grid-template-columns: 1.1fr .9fr; gap: 32px; align-items: start; }
+.contact h2 { font-family: var(--font-display); font-weight: 800; font-size: clamp(2rem, 4.5vw, 2.8rem); letter-spacing: -.025em; line-height: 1.05; margin: 0 0 12px; }
+.contact p { margin: 0; color: var(--muted); max-width: 46ch; }
+.contact dl { margin: 0; display: grid; gap: 14px; min-width: 0; }
+.contact dt { font-family: var(--font-mono); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.contact dd { margin: 2px 0 0; font-weight: 600; overflow-wrap: anywhere; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.copy { font: inherit; font-size: 13px; font-weight: 600; padding: 3px 10px; border-radius: 6px; border: 1px solid var(--lav); background: transparent; color: var(--lav); cursor: pointer; }
+.copy:hover { background: var(--fill); color: var(--on-fill); }
+footer { margin-top: 56px; padding-block: 24px 40px; border-top: 1px solid var(--line); }
+footer .container { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; font-size: 14px; color: var(--muted); }
+
+/* Motion: cursor, ripple, reveal, progress */
+.progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 60; transform-origin: 0 50%; transform: scaleX(0); background: linear-gradient(90deg, var(--lav), var(--gold)); pointer-events: none; }
+.cursor-dot, .cursor-ring { position: fixed; left: 0; top: 0; z-index: 100; pointer-events: none; border-radius: 50%; opacity: 0; will-change: transform; }
+.cursor-dot { width: 7px; height: 7px; margin: -3.5px 0 0 -3.5px; background: var(--lav); transition: opacity .2s, width .2s, height .2s, margin .2s; }
+.cursor-ring { width: 34px; height: 34px; margin: -17px 0 0 -17px; border: 1.5px solid var(--lav); transition: opacity .25s, width .25s, height .25s, margin .25s, background .25s, border-color .25s; }
+body.cursor-on .cursor-dot { opacity: 1; }
+body.cursor-on .cursor-ring { opacity: .55; }
+body.cursor-hover .cursor-ring { width: 58px; height: 58px; margin: -29px 0 0 -29px; background: color-mix(in srgb, var(--lav) 12%, transparent); border-color: var(--gold); opacity: .8; }
+body.cursor-hover .cursor-dot { width: 4px; height: 4px; margin: -2px 0 0 -2px; }
+body.cursor-down .cursor-ring { width: 24px; height: 24px; margin: -12px 0 0 -12px; }
+.spark { position: fixed; left: 0; top: 0; z-index: 99; pointer-events: none; width: 6px; height: 6px; margin: -3px 0 0 -3px; border-radius: 50%; animation: spark .75s ease-out forwards; }
+@keyframes spark { to { opacity: 0; transform: translate(calc(var(--x) + var(--dx)), calc(var(--y) + var(--dy))) scale(.2); } }
+.click-ripple { position: absolute; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%; background: currentColor; opacity: .2; pointer-events: none; animation: ripple .55s ease-out forwards; }
+@keyframes ripple { to { transform: scale(16); opacity: 0; } }
+.btn, .chip, .copy { position: relative; overflow: hidden; }
+.motion .reveal { opacity: 0; transform: translateY(18px); transition: opacity .5s ease, transform .5s ease, border-color .3s, box-shadow .3s; }
+.motion .reveal.revealed { opacity: 1; transform: none; }
+@media (hover: hover) and (pointer: fine) { .motion .proj-row.reveal.revealed:hover { transform: scale(1.01); } }
+@media (hover: none), (pointer: coarse) { .cursor-dot, .cursor-ring, .spark { display: none; } }
+
+@media (max-width: 1180px) {
+  .side { width: 300px; }
+  .side-in { padding: 28px 22px; }
+  .page { margin-left: 300px; }
+  .container { padding-inline: 28px; }
+  .nav a { padding: 7px 9px; font-size: 14.5px; }
+  .nav a span { display: none; }
+  .proj-row { grid-template-columns: 130px minmax(0, 1fr); gap: 18px; }
+}
+@media (max-height: 820px) and (min-width: 961px) { .side-in { gap: 11px; padding-block: 20px; } .photo { width: 140px; height: 140px; } .stats { display: none; } .side h1 { font-size: 2.3rem; } }
+@media (max-width: 960px) {
+  .top-in { height: 58px; padding-inline: 16px; }
+  .menu-btn { display: inline-block; }
+  .nav { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; background: var(--surface); border-bottom: 1px solid var(--line); padding: 8px 16px 14px; box-shadow: 0 16px 30px rgba(30,24,48,.14); }
+  .nav.open { display: flex; }
+  .nav a { padding: 12px; font-size: 16px; }
+  .nav a span { display: inline; }
+  .side { position: relative; top: auto; bottom: auto; width: auto; overflow: hidden; margin: 16px 20px 0; border: 1px solid var(--line); border-radius: 22px; }
+  .side-in { padding: 32px 28px; }
+  .bio { max-width: 60ch; }
+  .actions { grid-template-columns: repeat(4, auto); justify-content: start; width: auto; }
+  .stats { max-width: 420px; }
+  .page { margin-left: 0; }
+  section { scroll-margin-top: 72px; }
+  .contact { grid-template-columns: 1fr; padding: 32px 24px; }
+  .awards { grid-template-columns: 1fr; }
+  .skills { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  body { font-size: 16px; }
+  .container { padding-inline: 16px; }
+  .side { margin: 12px 12px 0; border-radius: 20px; }
+  .side-in { padding: 26px 18px; gap: 14px; }
+  .photo { width: 150px; height: 150px; }
+  .side h1 { font-size: 2.3rem; }
+  .actions { grid-template-columns: 1fr 1fr; width: 100%; }
+  .actions .btn { padding: 11px 10px; }
+  section { padding-top: 48px; scroll-margin-top: 64px; }
+  .sec-title { margin-bottom: 20px; }
+  .chips { flex-wrap: nowrap; overflow-x: auto; margin-inline: -16px; padding-inline: 16px; padding-bottom: 4px; scrollbar-width: none; }
+  .chips::-webkit-scrollbar { display: none; }
+  .chip { flex: none; padding: 8px 14px; }
+  .proj-row { grid-template-columns: 1fr; gap: 10px; padding: 18px; }
+  .proj-label { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+  .proj-actions .pbtn { flex: 1; justify-content: center; padding: 10px; }
+  .xp-item { grid-template-columns: 1fr; padding: 18px; gap: 10px; }
+  .logo { width: 44px; height: 44px; font-size: 14px; border-radius: 11px; }
+  .logo.img { padding: 7px; }
+  .plogo { width: 32px; height: 32px; padding: 4px; margin: 0; }
+  .skill { padding: 18px; }
+  .award b { font-size: 1.6rem; }
+  .contact { padding: 28px 20px; border-radius: 18px; }
+  .search kbd { display: none; }
+  footer .container { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+  <div class="top-in">
+    <a class="brand" href="#about"><i>SS</i>Seloni Sinha</a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="nav">Menu ☰</button>
+    <ul class="nav" id="nav">
+      <li><a href="#experience"><span>01</span>Experience</a></li>
+      <li><a href="#projects"><span>02</span>Projects</a></li>
+      <li><a href="#skills"><span>03</span>Skills</a></li>
+      <li><a href="#awards"><span>04</span>Awards</a></li>
+      <li><a href="#education"><span>05</span>Education</a></li>
+      <li><a href="#contact"><span>06</span>Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<aside class="side" id="about" aria-label="About Seloni">
+  <canvas id="net" aria-hidden="true"></canvas>
+  <div class="side-in">
+    <div class="photo"><img src="photo.jpg" alt="Portrait of Seloni Sinha" width="520" height="520"></div>
+    <span class="status-pill"><i aria-hidden="true"></i>AI/ML Engineer at Jaguar Land Rover</span>
+    <h1>Seloni Sinha</h1>
+    <p class="rotator" aria-label="I build LLM assistants, AI agents, voice assistants and RAG pipelines">I build <span class="word" id="rotWord">LLM assistants</span><span class="caret" aria-hidden="true"></span></p>
+    <p class="bio">Graduate Software Engineer in Bangalore working on <mark>LLMs and agentic AI</mark>. At JLR I'm building a <mark>personalised voice assistant</mark> that remembers what each user prefers, an LLM assistant for vehicle diagnostics, and <mark>AI agents that resolve incidents</mark> on their own.</p>
+    <div class="hl"><span>LangChain</span><span>LangGraph</span><span>Agentic AI</span><span>RAG</span><span>MCP</span></div>
+    <div class="actions">
+      <a class="btn solid" href="#contact">Get in touch</a>
+      <a class="btn" href="resume.pdf" target="_blank" rel="noopener">Resume ↗</a>
+      <a class="btn" href="https://linkedin.com/in/selonisinha" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a class="btn" href="https://github.com/selonisinha03" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+    <div class="stats">
+      <div><b>AIR 4</b><span>ICSE 10th</span></div>
+      <div><b>Top 1%</b><span>JEE India</span></div>
+      <div><b>IIT</b><span>ISM Dhanbad</span></div>
+    </div>
+  </div>
+</aside>
+
+<div class="page">
+<main id="main" class="container">
+  <section id="experience">
+    <div class="sec-title"><span class="num">01</span><h2>Experience</h2></div>
+    <div class="xp">
+      <article class="xp-item">
+        <div class="logo img"><img src="logos/jlr.svg" alt="JLR logo"></div>
+        <div>
+          <div class="xp-head"><h3>Graduate Software Engineer, AI/ML</h3><span class="when">Jul 2025 – Present</span></div>
+          <p class="muted" style="margin:2px 0 0">Jaguar Land Rover · Bangalore</p>
+          <p class="sub">Personalised Voice Assistant</p>
+          <ul class="list">
+            <li>Building a voice assistant that personalises its responses for each user.</li>
+            <li>Groups user preferences into categories, stores them in memory and recalls the relevant ones in later conversations.</li>
+            <li>Agentic workflow built with LangChain and LangGraph.</li>
+          </ul>
+          <p class="sub">Ontology for Diagnostic Data</p>
+          <ul class="list">
+            <li>Designing an ontology that models the key data and concepts of vehicle diagnostics.</li>
+            <li>Integrating a Virtual Knowledge Graph with a JLR-specific LLM-powered assistant.</li>
+            <li>Building a unified design that standardises diagnostic data for analysis across platforms.</li>
+          </ul>
+          <p class="sub">Runbook Automation</p>
+          <ul class="list">
+            <li>Building AI-powered automation that resolves incidents by running predefined runbooks for triggered control points and error codes.</li>
+          </ul>
+        </div>
+      </article>
+      <article class="xp-item">
+        <div class="logo img"><img src="logos/jlr.svg" alt="JLR logo"></div>
+        <div>
+          <div class="xp-head"><h3>Data Science Intern <span class="status">PPO received</span></h3><span class="when">May 2024 – Jul 2024</span></div>
+          <p class="muted" style="margin:2px 0 0">Jaguar Land Rover · Bangalore</p>
+          <ul class="list">
+            <li>Preprocessed a large multi-source image dataset from vehicle-mounted cameras, standardising resolution and labels for semantic segmentation.</li>
+            <li>Implemented deep learning models for driver-assist systems, focused on real-time perception and scene understanding.</li>
+            <li>Contributed to R&amp;D on optimising vehicle fuel efficiency in traffic conditions.</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="sec-title"><span class="num">02</span><h2>Projects</h2></div>
+    <div class="toolbar">
+      <label class="search" for="q">
+        <span class="glyph">⌕</span>
+        <input id="q" type="search" placeholder="Search projects, tools or topics" autocomplete="off" aria-label="Search projects">
+        <kbd>/</kbd>
+      </label>
+      <div class="chips" id="chips" role="group" aria-label="Filter projects"></div>
+      <div class="meta-row">
+        <span id="count" aria-live="polite"></span>
+        <span class="meta-actions">
+          <button class="linkish" id="expandAll" type="button">Expand all descriptions</button>
+          <button class="linkish" id="random" type="button">Surprise me →</button>
+        </span>
+      </div>
+    </div>
+    <div class="proj-list" id="grid"></div>
+  </section>
+
+  <section id="skills">
+    <div class="sec-title"><span class="num">03</span><h2>Skills</h2></div>
+    <div class="skills">
+      <div class="skill"><h3>AI &amp; Machine Learning</h3><div class="tags"><span class="tag">PyTorch</span><span class="tag">TensorFlow</span><span class="tag">Hugging Face Transformers</span><span class="tag">scikit-learn</span><span class="tag">LangChain</span><span class="tag">LangGraph</span><span class="tag">Amazon SageMaker</span><span class="tag">NumPy</span><span class="tag">Pandas</span><span class="tag">Matplotlib</span></div></div>
+      <div class="skill"><h3>Generative &amp; Agentic AI</h3><div class="tags"><span class="tag">LLMs</span><span class="tag">RAG</span><span class="tag">Agentic AI</span><span class="tag">Model Context Protocol</span><span class="tag">NLP</span><span class="tag">Deep Learning</span><span class="tag">DSLs</span></div></div>
+      <div class="skill"><h3>Knowledge Graphs</h3><div class="tags"><span class="tag">OWL ontologies</span><span class="tag">Owlready</span><span class="tag">RDFLib</span><span class="tag">Ontop</span><span class="tag">RMLMapper</span><span class="tag">WebVOWL</span></div></div>
+      <div class="skill"><h3>Languages, Web &amp; Tools</h3><div class="tags"><span class="tag">Python</span><span class="tag">C++</span><span class="tag">C</span><span class="tag">JavaScript</span><span class="tag">FastAPI</span><span class="tag">React</span><span class="tag">Node.js</span><span class="tag">Express</span><span class="tag">HTML/CSS</span><span class="tag">Bootstrap</span><span class="tag">MongoDB</span><span class="tag">SQL</span><span class="tag">Redis</span><span class="tag">Docker</span><span class="tag">GitHub</span><span class="tag">GitLab</span><span class="tag">Postman</span><span class="tag">Jupyter</span><span class="tag">Kiro</span></div></div>
+    </div>
+  </section>
+
+  <section id="awards">
+    <div class="sec-title"><span class="num">04</span><h2>Awards</h2></div>
+    <div class="awards">
+      <div class="award star"><b>🏆 AIR 4</b><span>All India Rank 4, ICSE Class 10, among 2 million candidates</span></div>
+      <div class="award"><b>Top 1%</b><span>JEE, all India</span></div>
+      <div class="award"><b>1st</b><span>National EV-Thon, east India's largest tech fest</span></div>
+    </div>
+    <ul class="list">
+      <li>400+ problems solved across coding platforms; Global Rank 593 in CodeChef Starters.</li>
+      <li>CodeChef 1455 · Codeforces 1095 · HackerRank 5★</li>
+      <li>Organizer, HackFest'23, IIT (ISM) Dhanbad's official 36-hour hackathon.</li>
+      <li>First in her Mechanical Engineering batch to receive an internship and pre-placement offer.</li>
+      <li>Active member of CODEISM, the coding club of IIT (ISM) Dhanbad.</li>
+      <li>School representative at the Inter School Literary Competition.</li>
+    </ul>
+  </section>
+
+  <section id="education">
+    <div class="sec-title"><span class="num">05</span><h2>Education</h2></div>
+    <div class="xp">
+      <article class="xp-item">
+        <div class="logo img"><img src="logos/iit-ism.svg" alt="IIT (ISM) Dhanbad logo"></div>
+        <div>
+          <div class="xp-head"><h3>Indian Institute of Technology (ISM) Dhanbad</h3><span class="when">2021 – 2025</span></div>
+          <p class="muted" style="margin:2px 0 0">B.Tech, Mechanical Engineering · GPA 8.26</p>
+          <ul class="list">
+            <li>Coursework: Object-oriented programming, Data structures and algorithms, Building software systems.</li>
+            <li>Steering &amp; suspension, operations and sponsorship at the Electric Mobility Club (Formula racing team).</li>
+          </ul>
+        </div>
+      </article>
+      <article class="xp-item">
+        <div class="logo sch">SM</div>
+        <div>
+          <div class="xp-head"><h3>Stella Maris Inter College, Lucknow</h3><span class="when">2010 – 2021</span></div>
+          <p class="muted" style="margin:2px 0 0">Class 10 (ICSE): 99%, AIR 4 · Class 12: 96.25%</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact">
+      <div>
+        <p class="kicker">06 · Contact</p>
+        <h2>Start a conversation.</h2>
+        <p>Open to conversations about AI/ML roles, research collaborations and projects in generative AI, knowledge graphs or automotive software.</p>
+      </div>
+      <dl>
+        <div><dt>Email</dt><dd><span id="email">selonisinha2003@gmail.com</span><button class="copy" id="copyEmail" type="button">Copy</button></dd></div>
+        <div><dt>LinkedIn</dt><dd><a href="https://linkedin.com/in/selonisinha" target="_blank" rel="noopener">linkedin.com/in/selonisinha ↗</a></dd></div>
+        <div><dt>GitHub</dt><dd><a href="https://github.com/selonisinha03" target="_blank" rel="noopener">github.com/selonisinha03 ↗</a></dd></div>
+        <div><dt>Resume</dt><dd><a href="resume.pdf" target="_blank" rel="noopener">View resume (PDF) ↗</a></dd></div>
+      </dl>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <span>© 2026 Seloni Sinha · Bangalore, India</span>
+    <a href="#about">Back to top ↑</a>
+  </div>
+</footer>
+</div>
+
+<div class="progress" id="progress" aria-hidden="true"></div>
+<div class="cursor-ring" aria-hidden="true"></div>
+<div class="cursor-dot" aria-hidden="true"></div>
+
+<script>
+var PROJECTS = [
+  { id: "voice", logo: "jlr", org: "Jaguar Land Rover", year: "2025 – now", status: "Ongoing", title: "Personalised Voice Assistant", cats: ["jlr", "genai"],
+    desc: "A voice assistant that remembers each user's preferences, organised by category, and uses them to tailor its answers.",
+    points: ["Categorises user preferences and stores them in long-term memory.", "Retrieves only the preference categories relevant to the current request, then personalises the response.", "Agentic workflow orchestrated with LangGraph on top of LangChain."],
+    tags: ["LangChain", "LangGraph", "Agentic AI", "LLM", "Memory"] },
+  { id: "ontology", logo: "jlr", org: "Jaguar Land Rover", year: "2025 – now", status: "Ongoing", title: "Diagnostic Data Ontology", cats: ["jlr", "kg", "genai"], must: true,
+    desc: "An ontology and virtual knowledge graph for vehicle diagnostic data, connected to a JLR-specific LLM assistant.",
+    points: ["Models the key data and concepts of vehicle diagnostics as an OWL ontology.", "Virtual Knowledge Graph lets the LLM assistant query diagnostic data without copying it.", "One unified design so diagnostic data can be analysed consistently across platforms."],
+    tags: ["OWL", "Ontop", "RDFLib", "RMLMapper", "LLM"] },
+  { id: "runbook", logo: "jlr", org: "Jaguar Land Rover", year: "2025 – now", status: "Ongoing", title: "AI Runbook Automation", cats: ["jlr", "genai"],
+    desc: "Automated incident resolution that runs predefined runbooks when control points or error codes trigger.",
+    points: ["Maps triggered control points and error codes to the right runbook.", "Executes resolution steps automatically using agentic AI patterns."],
+    tags: ["Agentic AI", "LangGraph", "MCP", "Python"] },
+  { id: "adas", logo: "jlr", org: "JLR · Internship", year: "2024", status: "Completed", title: "Driver-Assist Perception", cats: ["jlr", "cv"],
+    desc: "Semantic segmentation for driver-assist systems, built on a multi-source vehicle camera dataset.",
+    points: ["Preprocessed a large multi-source image dataset, standardising resolution and labels.", "Implemented deep learning models for real-time perception and scene understanding.", "Contributed to R&D on fuel efficiency in traffic conditions."],
+    tags: ["PyTorch", "Segmentation", "Computer Vision"] },
+  { id: "ragenius", org: "Personal project", year: "", status: "Completed", title: "RAGenius", cats: ["genai", "mlops"],
+    desc: "End-to-end retrieval-augmented generation with Llama 2 on AWS Bedrock and FAISS retrieval.",
+    points: ["Serverless architecture on AWS Lambda, API Gateway, DynamoDB and S3.", "Integrated with SageMaker; MLOps through GitHub Actions.", "FAISS vector search for fast, relevant retrieval."],
+    tags: ["Llama 2", "LangChain", "FAISS", "AWS Bedrock", "Boto3"], link: "https://github.com/selonisinha03" },
+  { id: "summarease", org: "Personal project", year: "", status: "Completed", title: "SummarEase", cats: ["genai", "mlops"],
+    desc: "Transformer-based text summarisation served with FastAPI and Docker on AWS.",
+    points: ["Automated text preprocessing and summarisation pipeline.", "CI/CD with GitHub Actions covering tests, retraining and deployment.", "Model performance monitored in MLflow."],
+    tags: ["Transformers", "FastAPI", "Docker", "AWS", "MLflow"], link: "https://github.com/selonisinha03" },
+  { id: "medintel", org: "Personal project", year: "", status: "Completed", title: "MedIntel", cats: ["cv", "mlops"],
+    desc: "Kidney disease classification using CNNs and classical ML, with reproducible experiments.",
+    points: ["CNN and classical ML models for medical image classification.", "Experiment tracking and data versioning with MLflow and DVC.", "Real-time inference via FastAPI and Docker on AWS; retraining through GitHub Actions."],
+    tags: ["TensorFlow", "CNN", "DVC", "MLflow", "Docker"], link: "https://github.com/selonisinha03" },
+  { id: "formula", logo: "iit", org: "IIT (ISM) Formula team", year: "2021 – 2025", status: "Completed", title: "Formula Racing: Steering & Suspension", cats: ["mech"],
+    desc: "Steering and suspension calculations for the college Formula racing car, alongside operations and sponsorship.",
+    points: ["Responsible for steering geometry and suspension calculations.", "Handled operations and sponsorship for the team."],
+    tags: ["Vehicle dynamics", "Mechanical design"] },
+  { id: "evthon", logo: "iit", org: "IIT (ISM) tech fest", year: "", status: "Winner", title: "National EV-Thon: 1st Place", cats: ["mech"],
+    desc: "Won first place at the National EV-Thon at east India's largest tech fest.",
+    points: ["Competition focused on electric vehicle engineering."],
+    tags: ["Electric vehicles", "Competition"] }
+];
+var LOGOS = { jlr: ["logos/jlr.svg", "JLR logo"], iit: ["logos/iit-ism.svg", "IIT (ISM) Dhanbad logo"] };
+var CATS = [["all","All"],["jlr","Work at JLR"],["genai","Generative AI"],["kg","Knowledge graphs"],["mlops","MLOps"],["cv","Computer vision"],["mech","Mechanical & EV"]];
+
+var state = { cat: "all", q: "" }, visible = [];
+var grid = document.getElementById('grid'), chips = document.getElementById('chips'), qEl = document.getElementById('q');
+
+CATS.forEach(function (c) {
+  var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = c[1]; b.dataset.cat = c[0];
+  b.setAttribute('aria-pressed', c[0] === 'all'); b.addEventListener('click', function () { state.cat = c[0]; render(); }); chips.appendChild(b);
+});
+
+function esc(t) { return String(t).replace(/[&<>"]/g, function (m) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[m]; }); }
+function render() {
+  var q = state.q.trim().toLowerCase();
+  visible = PROJECTS.filter(function (p) {
+    if (state.cat !== 'all' && p.cats.indexOf(state.cat) < 0) return false;
+    if (!q) return true;
+    return (p.title + ' ' + p.org + ' ' + p.desc + ' ' + p.tags.join(' ') + ' ' + p.points.join(' ')).toLowerCase().indexOf(q) >= 0;
+  });
+  [].forEach.call(chips.children, function (b) { b.setAttribute('aria-pressed', b.dataset.cat === state.cat); });
+  document.getElementById('count').textContent = visible.length + (visible.length === 1 ? ' project' : ' projects');
+  if (!visible.length) { grid.innerHTML = '<div class="empty">No projects match “' + esc(state.q) + '”. Try another word or pick All.</div>'; return; }
+  grid.innerHTML = visible.map(function (p) {
+    return '<article class="proj-row" id="p-' + p.id + '">' +
+      '<div class="proj-label">' + (LOGOS[p.logo] ? '<img class="plogo" src="' + LOGOS[p.logo][0] + '" alt="' + LOGOS[p.logo][1] + '">' : '') + '<span class="org">' + esc(p.org) + '</span>' + (p.year ? '<span class="pyear">' + esc(p.year) + '</span>' : '') + '<span class="pstatus' + (p.status === 'Winner' ? ' win' : '') + '">' + esc(p.status) + '</span></div>' +
+      '<div class="proj-main"><h3>' + esc(p.title) + (p.must ? ' <span class="must">★ Must see</span>' : '') + '</h3><p class="pdesc">' + esc(p.desc) + '</p>' +
+      '<div class="badges">' + p.tags.map(function (t) { return '<span class="badge">' + esc(t) + '</span>'; }).join('') + '</div>' +
+      '<div class="pdetail" id="d-' + p.id + '" hidden><ul class="list">' + p.points.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul></div>' +
+      '<div class="proj-actions"><button class="pbtn" type="button" data-toggle="' + p.id + '" aria-expanded="false" aria-controls="d-' + p.id + '">Technical details <span class="arr">▾</span></button>' +
+      (p.link ? '<a class="pbtn solid" href="' + p.link + '" target="_blank" rel="noopener">View on GitHub ↗</a>' : '') + '</div></div></article>';
+  }).join('');
+  syncExpandLabel();
+  if (window.observeReveal) grid.querySelectorAll('.proj-row').forEach(window.observeReveal);
+}
+function setOpen(btn, open) { btn.setAttribute('aria-expanded', open); document.getElementById(btn.getAttribute('aria-controls')).hidden = !open; }
+function syncExpandLabel() {
+  var bs = grid.querySelectorAll('[data-toggle]'), all = bs.length && [].every.call(bs, function (b) { return b.getAttribute('aria-expanded') === 'true'; });
+  document.getElementById('expandAll').textContent = all ? 'Collapse all descriptions' : 'Expand all descriptions';
+}
+grid.addEventListener('click', function (e) { var b = e.target.closest('[data-toggle]'); if (b) { setOpen(b, b.getAttribute('aria-expanded') !== 'true'); syncExpandLabel(); } });
+document.getElementById('expandAll').addEventListener('click', function () {
+  var open = this.textContent.indexOf('Expand') === 0;
+  grid.querySelectorAll('[data-toggle]').forEach(function (b) { setOpen(b, open); }); syncExpandLabel();
+});
+qEl.addEventListener('input', function () { state.q = qEl.value; render(); });
+document.getElementById('random').addEventListener('click', function () {
+  var rows = grid.querySelectorAll('.proj-row'); if (!rows.length) return;
+  var r = rows[Math.floor(Math.random() * rows.length)];
+  setOpen(r.querySelector('[data-toggle]'), true); syncExpandLabel(); r.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  r.classList.add('flash'); setTimeout(function () { r.classList.remove('flash'); }, 1600);
+});
+document.addEventListener('keydown', function (e) {
+  if (e.key === '/' && document.activeElement !== qEl) { e.preventDefault(); qEl.focus(); }
+});
+
+/* Mobile menu */
+var menuBtn = document.getElementById('menuBtn'), nav = document.getElementById('nav');
+menuBtn.addEventListener('click', function () { var o = nav.classList.toggle('open'); menuBtn.setAttribute('aria-expanded', o); menuBtn.textContent = o ? 'Close ×' : 'Menu ☰'; });
+document.addEventListener('click', function (e) { if (nav.classList.contains('open') && !e.target.closest('.top, .nav')) { nav.classList.remove('open'); menuBtn.setAttribute('aria-expanded', 'false'); menuBtn.textContent = 'Menu ☰'; } });
+nav.addEventListener('click', function (e) { if (e.target.closest('a')) { nav.classList.remove('open'); menuBtn.setAttribute('aria-expanded', 'false'); menuBtn.textContent = 'Menu ☰'; } });
+
+/* Active nav link */
+var links = [].slice.call(nav.querySelectorAll('a'));
+if ('IntersectionObserver' in window) {
+  var io = new IntersectionObserver(function (es) { es.forEach(function (en) { if (en.isIntersecting) links.forEach(function (l) { l.classList.toggle('active', l.getAttribute('href') === '#' + en.target.id); }); }); }, { rootMargin: '-45% 0px -50% 0px' });
+  document.querySelectorAll('main section').forEach(function (s) { io.observe(s); });
+}
+
+/* Copy email */
+document.getElementById('copyEmail').addEventListener('click', function () {
+  var btn = this, el = document.getElementById('email');
+  function done() { btn.textContent = 'Copied ✓'; setTimeout(function () { btn.textContent = 'Copy'; }, 1600); }
+  function fallback() { var r = document.createRange(); r.selectNodeContents(el); var s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = 'Selected'; }
+  try { navigator.clipboard.writeText(el.textContent).then(done, fallback); } catch (err) { fallback(); }
+});
+
+/* Hero network background */
+(function () {
+  var cv = document.getElementById('net'), ctx = cv.getContext('2d'), nodes = [], W, H, still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function size() { var r = cv.getBoundingClientRect(), d = devicePixelRatio || 1; W = r.width; H = r.height; cv.width = W * d; cv.height = H * d; ctx.setTransform(d, 0, 0, d, 0, 0); }
+  size(); addEventListener('resize', size);
+  var running = true, small = W < 400;
+  if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { var was = running; running = es[0].isIntersecting; if (running && !was && !still) requestAnimationFrame(frame); }).observe(cv);
+  for (var i = 0; i < (small ? 18 : 28); i++) nodes.push({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - .5) * .3, vy: (Math.random() - .5) * .3 });
+  function frame() {
+    ctx.clearRect(0, 0, W, H);
+    nodes.forEach(function (n) { n.x += n.vx; n.y += n.vy; if (n.x < 0 || n.x > W) n.vx *= -1; if (n.y < 0 || n.y > H) n.vy *= -1; });
+    for (var a = 0; a < nodes.length; a++) for (var b = a + 1; b < nodes.length; b++) {
+      var d = Math.hypot(nodes[a].x - nodes[b].x, nodes[a].y - nodes[b].y);
+      if (d < 110) { ctx.strokeStyle = 'rgba(139,111,208,' + (1 - d / 110) * .3 + ')'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(nodes[a].x, nodes[a].y); ctx.lineTo(nodes[b].x, nodes[b].y); ctx.stroke(); }
+    }
+    nodes.forEach(function (n) { ctx.fillStyle = 'rgba(192,87,138,.45)'; ctx.beginPath(); ctx.arc(n.x, n.y, 2.2, 0, 6.283); ctx.fill(); });
+    if (!still && running) requestAnimationFrame(frame);
+  }
+  frame();
+})();
+
+/* Motion: scroll progress, reveal, cursor, sparkles, ripple, row spotlight */
+(function () {
+  var still = matchMedia('(prefers-reduced-motion: reduce)').matches, fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
+  var bar = document.getElementById('progress'), ticking = false;
+  function prog() { var h = document.documentElement.scrollHeight - innerHeight; bar.style.transform = 'scaleX(' + (h > 0 ? scrollY / h : 0) + ')'; ticking = false; }
+  addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(prog); } }, { passive: true }); prog();
+
+  if (!still && 'IntersectionObserver' in window) {
+    document.documentElement.classList.add('motion');
+    var n = 0, ro = new IntersectionObserver(function (es) { es.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('revealed'); ro.unobserve(en.target); } }); }, { threshold: .06 });
+    window.observeReveal = function (el) { el.classList.add('reveal'); el.style.transitionDelay = (n++ % 4) * 60 + 'ms'; ro.observe(el); };
+    document.querySelectorAll('.sec-title, .xp-item, .skill, .award, .contact, .toolbar').forEach(window.observeReveal);
+  }
+
+  document.addEventListener('pointerdown', function (e) {
+    var t = e.target.closest('button, .btn, .pbtn'); if (!t || still) return;
+    var r = t.getBoundingClientRect(), s = document.createElement('span'); s.className = 'click-ripple';
+    s.style.left = (e.clientX - r.left) + 'px'; s.style.top = (e.clientY - r.top) + 'px'; t.appendChild(s);
+    setTimeout(function () { s.remove(); }, 600);
+  });
+
+  if (!fine || still) return;
+  var dot = document.querySelector('.cursor-dot'), ring = document.querySelector('.cursor-ring'), body = document.body;
+  var mx = -100, my = -100, rx = -100, ry = -100, lastSpark = 0, COLORS = ['#b9a2f0', '#8b6fd0', '#f2a6c8', '#ffd3e8'];
+  addEventListener('pointermove', function (e) {
+    if (e.pointerType !== 'mouse') return;
+    mx = e.clientX; my = e.clientY; body.classList.add('cursor-on');
+    dot.style.transform = 'translate(' + mx + 'px,' + my + 'px)';
+    var now = performance.now();
+    if (now - lastSpark > 40) {
+      lastSpark = now; var sp = document.createElement('span'); sp.className = 'spark';
+      sp.style.setProperty('--x', mx + 'px'); sp.style.setProperty('--y', my + 'px');
+      sp.style.transform = 'translate(' + mx + 'px,' + my + 'px)';
+      sp.style.background = COLORS[Math.floor(Math.random() * COLORS.length)];
+      sp.style.setProperty('--dx', (Math.random() - .5) * 30 + 'px'); sp.style.setProperty('--dy', (Math.random() * 22 + 6) + 'px');
+      body.appendChild(sp); setTimeout(function () { sp.remove(); }, 760);
+    }
+    var row = e.target.closest && e.target.closest('.proj-row');
+    if (row) { var b = row.getBoundingClientRect(); row.style.setProperty('--spot-x', (mx - b.left) + 'px'); row.style.setProperty('--spot-y', (my - b.top) + 'px'); }
+  });
+  document.addEventListener('mouseover', function (e) { body.classList.toggle('cursor-hover', !!e.target.closest('a, button, input, .badge, .tag')); });
+  document.documentElement.addEventListener('mouseleave', function () { body.classList.remove('cursor-on'); });
+  addEventListener('mousedown', function () { body.classList.add('cursor-down'); });
+  addEventListener('mouseup', function () { body.classList.remove('cursor-down'); });
+  (function loop() { rx += (mx - rx) * .18; ry += (my - ry) * .18; ring.style.transform = 'translate(' + rx + 'px,' + ry + 'px)'; requestAnimationFrame(loop); })();
+})();
+
+/* Sidebar typewriter */
+(function () {
+  var el = document.getElementById('rotWord'), words = ['LLM assistants', 'AI agents', 'voice assistants', 'RAG pipelines'], wi = 0, ci = words[0].length, del = true;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  function tick() {
+    var w = words[wi];
+    if (del) { ci--; if (ci === 0) { del = false; wi = (wi + 1) % words.length; } }
+    else { ci++; if (ci === words[wi].length) { del = true; el.textContent = words[wi]; return setTimeout(tick, 1800); } }
+    el.textContent = words[wi].slice(0, ci) || '\u00a0';
+    setTimeout(tick, del ? 45 : 85);
+  }
+  setTimeout(tick, 2200);
+})();
+
+render();
+</script>
+</body>
+</html>
