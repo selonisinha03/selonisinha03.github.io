@@ -15,13 +15,13 @@
 <style>
 /* Layout: sticky top nav; fixed lavender sidebar (photo, intro, links) + scrolling main column; collapses to top bar + intro card under 960px. Patent-style project rows; custom cursor + scroll reveal */
 :root {
-  --bg: #f4effd;
-  --side: #e7dcfb;
-  --side-2: #f1eafd;
+  --bg: #f8f8fb;
+  --side: #ffffff;
+  --side-2: #f5f2fc;
   --surface: #ffffff;
   --fg: #1e1830;
-  --muted: #6a6282;
-  --line: #e4ddf2;
+  --muted: #5f5b70;
+  --line: #e7e5ee;
   --lav: #7d64c6;
   --lav-2: #9b86d8;
   --fill: #c9b8f3;
@@ -79,7 +79,6 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .side { position: fixed; top: calc(65px + env(safe-area-inset-top, 0px)); bottom: 0; left: 0; width: 340px; z-index: 20; overflow-y: auto; overscroll-behavior: contain; display: flex; flex-direction: column;
   background: linear-gradient(170deg, var(--side) 0%, var(--side-2) 100%); border-right: 1px solid var(--line); scrollbar-width: thin; scrollbar-color: var(--fill) transparent; }
 .side::-webkit-scrollbar { width: 6px; } .side::-webkit-scrollbar-thumb { background: var(--fill); border-radius: 6px; }
-.side canvas { position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; opacity: .6; }
 .side-in { position: relative; margin: auto 0; padding: 30px 28px; display: flex; flex-direction: column; align-items: flex-start; text-align: left; gap: 14px; }
 .photo { position: relative; width: 184px; height: 184px; flex: none; align-self: center; border-radius: 50%; padding: 4px; background: conic-gradient(from 200deg, var(--fill), #f6b8d4, #b9a2f0, var(--fill)); box-shadow: 0 14px 34px rgba(140,115,210,.3); }
 .photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; border-radius: 50%; display: block; border: 4px solid var(--surface); }
@@ -193,7 +192,7 @@ ul.list li::marker { color: var(--lav); }
 .tag { font-size: 14px; padding: 4px 11px; border-radius: 8px; background: var(--bg); border: 1px solid var(--line); }
 
 /* Awards */
-.awards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 18px; }
+.awards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 18px; }
 .award { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 20px; min-width: 0; }
 .award b { display: block; font-family: var(--font-display); font-weight: 800; font-size: 2rem; color: var(--lav); line-height: 1.1; font-variant-numeric: tabular-nums; }
 .award span { color: var(--muted); font-size: 15px; }
@@ -310,7 +309,6 @@ body.cursor-down .cursor-ring { width: 24px; height: 24px; margin: -12px 0 0 -12
 </header>
 
 <aside class="side" id="about" aria-label="About Seloni">
-  <canvas id="net" aria-hidden="true"></canvas>
   <div class="side-in">
     <div class="photo"><img src="photo.jpg" alt="Portrait of Seloni Sinha" width="520" height="520"></div>
     <span class="status-pill"><i aria-hidden="true"></i>AI/ML Engineer at Jaguar Land Rover</span>
@@ -411,10 +409,12 @@ body.cursor-down .cursor-ring { width: 24px; height: 24px; margin: -12px 0 0 -12
       <div class="award star"><b>🏆 AIR 4</b><span>All India Rank 4, ICSE Class 10, among 2 million candidates</span></div>
       <div class="award"><b>Top 1%</b><span>JEE, all India</span></div>
       <div class="award"><b>1st</b><span>National EV-Thon, east India's largest tech fest</span></div>
+      <div class="award"><b>Runner-up</b><span>JLR Global Hackathon 2024</span></div>
     </div>
     <ul class="list">
       <li>400+ problems solved across coding platforms; Global Rank 593 in CodeChef Starters.</li>
       <li>CodeChef 1455 · Codeforces 1095 · HackerRank 5★</li>
+      <li>Runner-up at the JLR Global Hackathon 2024.</li>
       <li>Organizer, HackFest'23, IIT (ISM) Dhanbad's official 36-hour hackathon.</li>
       <li>First in her Mechanical Engineering batch to receive an internship and pre-placement offer.</li>
       <li>Active member of CODEISM, the coding club of IIT (ISM) Dhanbad.</li>
@@ -510,7 +510,7 @@ var PROJECTS = [
     points: ["Responsible for steering geometry and suspension calculations.", "Handled operations and sponsorship for the team."],
     tags: ["Vehicle dynamics", "Mechanical design"] },
   { id: "evthon", logo: "iit", org: "IIT (ISM) tech fest", year: "", status: "Winner", title: "National EV-Thon: 1st Place", cats: ["mech"],
-    desc: "Won first place at the National EV-Thon at east India's largest tech fest.",
+    desc: "Won first place at EV-Thon at east India's largest tech fest, Concetto.",
     points: ["Competition focused on electric vehicle engineering."],
     tags: ["Electric vehicles", "Competition"] }
 ];
@@ -590,26 +590,6 @@ document.getElementById('copyEmail').addEventListener('click', function () {
   try { navigator.clipboard.writeText(el.textContent).then(done, fallback); } catch (err) { fallback(); }
 });
 
-/* Hero network background */
-(function () {
-  var cv = document.getElementById('net'), ctx = cv.getContext('2d'), nodes = [], W, H, still = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function size() { var r = cv.getBoundingClientRect(), d = devicePixelRatio || 1; W = r.width; H = r.height; cv.width = W * d; cv.height = H * d; ctx.setTransform(d, 0, 0, d, 0, 0); }
-  size(); addEventListener('resize', size);
-  var running = true, small = W < 400;
-  if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { var was = running; running = es[0].isIntersecting; if (running && !was && !still) requestAnimationFrame(frame); }).observe(cv);
-  for (var i = 0; i < (small ? 18 : 28); i++) nodes.push({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - .5) * .3, vy: (Math.random() - .5) * .3 });
-  function frame() {
-    ctx.clearRect(0, 0, W, H);
-    nodes.forEach(function (n) { n.x += n.vx; n.y += n.vy; if (n.x < 0 || n.x > W) n.vx *= -1; if (n.y < 0 || n.y > H) n.vy *= -1; });
-    for (var a = 0; a < nodes.length; a++) for (var b = a + 1; b < nodes.length; b++) {
-      var d = Math.hypot(nodes[a].x - nodes[b].x, nodes[a].y - nodes[b].y);
-      if (d < 110) { ctx.strokeStyle = 'rgba(139,111,208,' + (1 - d / 110) * .3 + ')'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(nodes[a].x, nodes[a].y); ctx.lineTo(nodes[b].x, nodes[b].y); ctx.stroke(); }
-    }
-    nodes.forEach(function (n) { ctx.fillStyle = 'rgba(192,87,138,.45)'; ctx.beginPath(); ctx.arc(n.x, n.y, 2.2, 0, 6.283); ctx.fill(); });
-    if (!still && running) requestAnimationFrame(frame);
-  }
-  frame();
-})();
 
 /* Motion: scroll progress, reveal, cursor, sparkles, ripple, row spotlight */
 (function () {
